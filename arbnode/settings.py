@@ -29,9 +29,9 @@ with open('/root/django_secret.txt') as f:
 #SECRET_KEY = os.environ['SECRET']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','arbitrum.ftkuhnsman.com','66.94.106.218','livepeer.ftkuhnsman.com','38.242.129.90']
+ALLOWED_HOSTS = ['127.0.0.1','arbitrum.ftkuhnsman.com','66.94.106.218','livepeer.ftkuhnsman.com','dev.ftkuhnsman.com']
 
 
 # Application definition
