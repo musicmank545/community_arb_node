@@ -26,12 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 with open('/root/django_secret.txt') as f:
     SECRET_KEY = f.read().strip()
 
-#SECRET_KEY = os.environ['SECRET']
+with open('/root/master_key.txt') as f:
+    MASTER_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','arbitrum.ftkuhnsman.com','66.94.106.218','livepeer.ftkuhnsman.com','dev.ftkuhnsman.com']
+ALLOWED_HOSTS = ['127.0.0.1','arbitrum.ftkuhnsman.com','66.94.106.218','livepeer.ftkuhnsman.com','rpc.ftklivepeer.net']
 
 
 # Application definition
@@ -39,6 +40,9 @@ ALLOWED_HOSTS = ['127.0.0.1','arbitrum.ftkuhnsman.com','66.94.106.218','livepeer
 INSTALLED_APPS = [
     'django_prometheus',
     'api.apps.ApiConfig',
+    'infra.apps.InfraConfig',
+    'django_celery_beat',
+    'django_celery_results',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -136,7 +140,7 @@ USE_TZ = True
 
 import os
 STATIC_URL = '/static/'
-STATIC_ROOT = '/root/static'
+STATIC_ROOT = '/etc/static'
 STATICFILES_DIR = (
         os.path.join(BASE_DIR, "static"),
 )

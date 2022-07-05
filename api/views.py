@@ -1,42 +1,41 @@
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
-from django.forms.models import model_to_dict
-from django.template import loader
-from django.http import Http404
-from django.urls import reverse
-from .models import *
+from django.http import HttpResponse
 import requests
 from django.views.decorators.csrf import csrf_exempt
-from .models import ApiKey, updateCache
-from django.core.cache import cache, caches
+from .models import updateCache, ApiKey
+from infra.models import Node
+from django.core.cache import cache
 from django.views.decorators.cache import never_cache
 from .metrics import *
 import json
 import traceback
-from django.http import JsonResponse
 from requests.adapters import HTTPAdapter, Retry
+from django.conf import settings
+from django.http import JsonResponse
 
-#arb_rpc_url = 'http://154.53.49.145:8080'
+
+
 eth_rpc_url = 'http://154.53.49.145:8088'
 
-arb_rpc_url = 'http://66.94.101.120:8547'
-
-
-#from web3 import HTTPProvider
-#from ens import ENS
-#from django.core import serializers
-#from rest_framework import viewsets
-#from .serializers import *
-
-# Create your views here.
-
-#@silk_profile(name='API Call')
+@csrf_exempt
+@never_cache
+def test(request,apikey):
+    if apikey == settings.MASTER_KEY:
+        keys = list(ApiKey.objects.all().values())
+        return JsonResponse(keys, safe=False)
+    else:
+        return HttpResponse('Fail', status=305)
 
 @csrf_exempt
 @never_cache
 def arb(request,apikey):
     body=request.body.decode("utf-8")
     keys = cache.get('keys')
+    arb_rpc_url = cache.get('activeNode')
+    
+    if arb_rpc_url is None:
+        arb_rpc_url = Node.objects.get(default=True).url
+        cache.set('activeNode',arb_rpc_url,)
+        print('updateActiveNodeCache')
     
     if keys is None:
         updateCache()
@@ -90,7 +89,7 @@ def arb(request,apikey):
             traceback.print_exc()
             for x,y in request.META.items():
                 print(x,y)
-            print(body)
+            print(body, flush=True)
             Metrics.requests_invalid.inc()
             return HttpResponse('Invalid RPC request', status=300)
     else:
@@ -125,3 +124,10 @@ def eth(request,apikey):
     else:
         return HttpResponse('API Key is not active', status=300)
         print('error')
+        
+        
+@csrf_exempt
+@never_cache
+def health(request):
+    print('cloudflare health checked', flush=True)
+    return HttpResponse(cache.get('health'))

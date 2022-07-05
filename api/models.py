@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.cache import caches
 from django.core.cache import cache
 
 # Create your models here.
