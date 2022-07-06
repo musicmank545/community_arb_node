@@ -81,6 +81,7 @@ def health_check():
     print('Checking node health', flush=True)
     threads = []
     blockHeights = []
+    nodeNames = []
     blockHeights.append(get_arbiscan_block_height())
     
     nodes = Node.objects.all()
@@ -108,8 +109,11 @@ def health_check():
     if default is not None:
         cache.set('activeNode',default.url,)
         cache.set('health','good',)
+        print('Node is Healthy')
     else:
         cache.set('health','bad',)
+        print('Node is Unhealthy')
+        
         highest = actives.order_by('-currentBlockHeight').first()
         if highest is not None:
             cache.set('activeNode',highest.url)
