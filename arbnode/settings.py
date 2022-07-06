@@ -30,9 +30,9 @@ with open('/root/master_key.txt') as f:
     MASTER_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','arbitrum.ftkuhnsman.com','66.94.106.218','livepeer.ftkuhnsman.com','rpc.ftklivepeer.net']
+ALLOWED_HOSTS = ['127.0.0.1','arbitrum.ftkuhnsman.com','66.94.106.218','livepeer.ftkuhnsman.com','rpc.ftklivepeer.net','*']
 
 
 # Application definition
