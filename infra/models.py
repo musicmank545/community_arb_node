@@ -96,7 +96,7 @@ def health_check():
     maxHeight = max(blockHeights)
     for node in nodes:
         delta = maxHeight - node.currentBlockHeight
-        print(delta)
+        print(node.name+':'+str(delta))
         if delta > 100:
             node.healthy = False
         else:
