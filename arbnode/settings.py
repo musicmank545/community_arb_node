@@ -32,7 +32,7 @@ with open('/root/master_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','rpc.ftklivepeer.net',]
+ALLOWED_HOSTS = ['127.0.0.1','rpc.ftklivepeer.net','*.ftklivepeer.net']
 
 
 # Application definition
