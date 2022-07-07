@@ -32,7 +32,7 @@ with open('/root/master_key.txt') as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','arbitrum.ftkuhnsman.com','66.94.106.218','livepeer.ftkuhnsman.com','rpc.ftklivepeer.net','*']
+ALLOWED_HOSTS = ['127.0.0.1','rpc.ftklivepeer.net',]
 
 
 # Application definition
@@ -70,7 +70,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'arbnode.urls'
 
-CSRF_TRUSTED_ORIGINS = ['https://rpc.ftklivepeer.net','https://arbitrum.ftkuhnsman.com','https://livepeer.ftkuhnsman.com','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://rpc.ftklivepeer.net',]
 
 TEMPLATES = [
     {
@@ -89,14 +89,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'arbnode.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-#with open('/root/DATABASES.json') as json_file:
-#    databases = json.load(json_file)
-
-#DATABASES = databases
 
 DATABASES = { 'default':
     {
@@ -145,8 +137,6 @@ STATICFILES_DIR = (
         os.path.join(BASE_DIR, "static"),
 )
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -157,7 +147,6 @@ CACHES = {
     }
 }
 
-CACHALOT_UNCACHABLE_APPS = ('payments','lpdata','info')
 
 CELERY_RESULT_BACKEND = "django-db"
 
@@ -169,19 +158,5 @@ USE_X_FORWARDED_HOST = True
 PROMETHEUS_METRICS_EXPORT_PORT_RANGE = range(8001, 8050)
 
 
-STRIPE_PUBLISHABLE_KEY = 'pk_live_51Kod8AGJroezaJBhEM28vIk53IMygBiFtNdzbClTmZ1NBn5ffVx72usiFH0pmz1hK5FeKE5y1ES8mDd84nvXAo8M00C44zpc3R'
-STRIPE_SECRET_KEY = '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'
-STRIPE_WEBHOOK_SECRET = 'whsec_uG4XPfkSShiwDLKHpekmuWly7lhS5O7r'
-
-
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-SILKY_PYTHON_PROFILER = False
-
-SILKY_PYTHON_PROFILER_BINARY = False
-
-SILKY_PYTHON_PROFILER_RESULT_PATH = os.path.join(BASE_DIR, "profiles")
-
-SILKY_META = False
-
-SILKY_INTERCEPT_PERCENT = 5
