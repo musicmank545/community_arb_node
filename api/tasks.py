@@ -1,10 +1,11 @@
 from celery import shared_task
 from .models import ApiKey, updateCache
+from django.conf import settings
 import requests
 
 @shared_task(name="get_keys")
 def updateKeys():
-    response = requests.get('https://livepeer.ftkuhnsman.com/api/f8991fcd-7d60-4e3c-8296-73227ac34bdd/keys/')
+    response = requests.get('https://livepeer.ftkuhnsman.com/api/settings.MASTER_KEY/keys/')
     data = response.json()
     
     for key in data:
