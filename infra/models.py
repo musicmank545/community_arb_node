@@ -46,7 +46,7 @@ def health_check():
 '''
 
 def get_block_height(address='127.0.0.1',port='8547'):
-        url = 'http://{}:{}'.format(address,port)
+        url = address
         headers = {'Content-type': 'application/json'}
         data = '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":0}'
         
